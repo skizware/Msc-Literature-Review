@@ -1,0 +1,169 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Journal Article
+% LaTeX Template
+% Version 1.3 (9/9/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[twoside]{article}
+
+\usepackage{lipsum} % Package to generate dummy text throughout this template
+
+\usepackage[sort&compress,square,comma,authoryear]{natbib}
+\usepackage[sc]{mathpazo} % Use the 	Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less space between them
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+%\renewcommand\thesubsection{\Roman{subsection}} % Roman numerals for subsections
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}} % Roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\normalsize}{\thesubsection.}{1em}{} % Change the look of the section titles
+\titlespacing{\subsection}{0.8em}{1em}{0.5em}
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+%\fancyhead[C]{Running title $\bullet$ November 2012 $\bullet$ Vol. XXI, No. 1} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{\vspace{-15mm}\fontsize{24pt}{10pt}\selectfont\textbf{Music Information Retrieval: A Literature Review}} % Article title
+
+\author{
+\large
+\textsc{David Anderson}%\thanks{A thank you or further information}\\[2mm] % Your name 
+\\
+\normalsize University of the Witwatersrand \\ % Your institution
+\normalsize Johannesburg, South Africa \\
+\normalsize \href{mailto:djohnanderson@gmail.com}{djohnanderson@gmail.com} % Your email address
+\vspace{1cm}
+}
+\date{}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Insert title
+
+\thispagestyle{fancy} % All pages have headers and footers
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+%--
+%\begin{abstract}
+%
+%\noindent \lipsum[1] % Dummy abstract text
+%
+%\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\begin{multicols}{2} % Two-column layout throughout the main article text
+
+\section{Introduction}
+
+\lettrine[nindent=0em,lines=1]{T}his review aims to provide an overview of the subject of Music Information Retrieval (MIR), as well as insight into how Machine Learning
+may be imployed to create robust MIR systems capable of learning high-order representations of audio signal. MIR is an interdisciplinary 
+science based on extracting meaningful information from music data. This information might provide a way to automatically identify key areas of interest
+in the audio data, recognize and capture musical information, or show us key characteristics of what it is that makes a sound, sound the way it does. This understanding may lead to solutions that can categorize large libraries of audio files, create recommendations of audio files that match input criteria, or even manuipulate and re-synthesize input audio.
+
+MIR applications focus on some set of perceptually relevant features in the audio data being analysed \citep{Lidy05,mirSurvey05}. It makes sense to exploit our understanding of well defined psycho-acoustic and musical properties to create reduced feature sets relevant to the human listener. Today, there exist a number of commercial level MIR systems that successfully analyse optimised feature spaces to search, categorize and find matches in audio input \citep{mirSurvey05}. Manually defining reduced features only based on our audible perception, however, inherently removes information from our input that we may not perceive as relevant. 
+
+In the sections that follow I will introduce established MIR approaches, as well as various applications that have utilized them successfully. I will also introduce new approaches that have leveraged modern Machine Learning techniques in an attempt to identify richer patterns and feature sets in the underlying audio data.
+%------------------------------------------------
+
+\section{Human-perceptually relevant features}
+The first step in any type of automatic audio analysis is the extraction of feature vectors \citep{Tzanetakis02}. Feature vectors are mathematical representations of useful information within the data. One of the main problems to overcome, is the high-dimensionality of audio data. High-dimensionality has been famously dubbed "...a curse" \citep{Bellman57} due to the fact that problem complexity grows exponentially with linear increase in dimensionality \citep{DeepLearningSurvey2010}.
+
+Amid this complexity, there have been acoustic features proposed that limit the dimensionality of the representation, and prove themselves useful for various applications \citep{Wold96,Typke04,Prechelt01}. \cite{Wold96} uses a set of audio features inspired by human understanding of audio data, all of which can be mathematically computed from the audio signal and extracted from the spectrogram of its frequencies. This set of features includes: 
+\begin{itemize}
+\item Loudness
+\item Pitch
+\item Brightness
+\item Bandwidth
+\item Harmonicity
+\end{itemize}
+Utilizing these features was a pioneering step in MIR due to being both perceptually relevant as well as mathematically computable. This approach immediately allows users to search for audio data within constraints of a specific feature. For instance, searching for audio within a certain pitch band no louder than a given loudness. Furthermore, the author presents a statistical method to classify a given subset of input samples by finding the mean and covariance between their feature vectors. This allows users to select, sort and classify audio data in a database. Results reported by the authors showed that sounds we know to be similar have very high similarity ratings, but there also exists a number of less highly rated false-positives. For example, an audio clip of laughter was deemed to be highly similar to the Laughter category, but so did the sounds of a chicken coop.
+
+The immediate limitation to the methodology defined by \citet{Wold96} is that the features are calculated over the entire audio sample. By doing this, temporal components of the audio data are ignored. This results in poor performance on longer input samples. To improve upon this there are signal-processing methods that take the temporal aspect of audio data into account. These methods involve creating a "window" function that looks at a small subset of the input sample, and then moves along the audio signal in constant time-steps forward. Feature vectors are then calculated at each window location, preserving the temporal nature of the data. This common signal processing technique is essential within the realm of MIR, and has been widely utilized in the literature \citet{Foote1997,Lidy05,Tzanetakis02,Hamel2010LearningFeatures,Mierswa2005AutoFeatureExtr}.
+
+Along with accounting for the lack of the temporal component in \citet{Wold96}, \citet{Tzanetakis02} notes that the afformentioned feature set is not particularly well suited for the analysis of \textit{music} audio data. It does not attempt to model musical information we know to be relevant. The authors improve upon the this not only by keeping a running average of the features at small windows of the audio data, but by adding musically relevant feature sets that define Timbral Texture, Rhythmic Content and Pitch Content. The feature sets can once again be extracted from spectrographic transforms of the audio data. Utilizing these additional feature sets showed a successful classification rate of 61\%.
+
+Rhythmic features inspired by \citet{Tzanetakis02} have since been used in the SOM-enhanced JukeBox, a commercial application that organizes music archives, presented by \citet{rauber2003som}. The biggest difference is that the rhythmic characteristics are considered within multiple frequency bands of the input, as opposed to once across the whole spectrum. This set doesn't represent traditional rhythm, but describes fluctiations within each of the bands considered. These feature vectors become input to a variation of a Self-Organizing Map (SOM) \citep{kohonen2002make}. SOMs are a type of Artificial Neural Network that can be trained to map highly dimensional input to a low dimensional output, while clustering the results of similar inputs together. The promising results have resulted in a commercial system that allow exploring unknown musical pieces similar to ones personal likings.
+
+\citet{Lidy05} takes the previous rhythmic features across multiple frequency bands and asks the question "What is it that the features represent?" The authors propose that a method of testing features and what they represent, is to re-synthesize the audio from the feature set extracted. In this way, re-synthesized audio can be manually compared to the original audio for similarity, and thus determine how effectively the features represent the original. The sound synthesis was performed by inverse spectrographic transforms, and as such data is inherently lost in the end result. While specifics of the audio data are lost, genres with a strong clear beat can clearly be distinguished from each other and it is even possible to perceive the voice of a singer in a re-synthesized sound. This success is attributed to the fact that the features represent much more than conventional rhythm, but fluctuations within the frequency bands.
+
+\section{Spectrograms}
+Many of the feature sets discussed up to now are possible to represent mathematically thanks to the Spectrogram. A spectrogram is a visually represented time-dependent graph of the frequencies and their strength in an input signal. \citet{Wold96} describes pitch by analysing the strongest frequencies in the spectrogram, and finding the lowest common divisor. This represents the frequency of the pitch. 
+
+While spectrograms are used in the manual definition of feature sets, they can also be used as features themselves, albeit highly dimensional. Raw spectrograms have been applied successfully in the fields of speech analysis and synthesis \citep{flanagan2013speech}, due to the fact that spoken phones (any distinct speech sound) have fairly distinct spectrograms. Given a dataset of phones and their matching spectrogram, one can define similarity measures to match phones in input speech and decode the spoken word.
+
+Another commercially successful application utilizing spectrogram analysis is Shazam, defined in \citet{Shazam03}. The author implements a system where the peaks in the highly dimensional time-frequency spectrogram are marked, and the rest of the data is removed. This creates a sparse set of coordinates uniquely identifying the particular audio track being analyzed, like a finger-print. Once a song has been analyzed, finger-printed, indexed and stored, reverse look-up becomes as easy as applying the same finger-printing technique to a sample of the audio, and efficient search techniques to find matches in the database. 
+
+\section{Mel-Frequency Cepstral Coefficients}
+Mel-Frequency Cepstral Coefficients (MFCCs) were first introduced by \citet{Davis1980MFCC}. These coefficients describe a Mel-Frequency Cepstrum, which is a transform of a sound spectrum, that leverages knowledge of the human auditory system to restrict the dimensionality of a sound spectrogram, while still retaining its useful nature. The success of MFCCs as feature vectors is largely due to their ability to represent important parts of the speech amplitude spectrum in a compact form \citep{Logan2000mel}.  The results in the inaugural work, as well as in works such as \citet{Foote1997} has led to MFCCs being the the dominant features used for speech recognition systems. Other applications have used MFCCs in their feature space when analyzing music due to the fact that they have been so successful in speech analysis. \citet{Logan2000mel} determines that their use is at least not harmful to the results, but that there may be other more optimal scales for modeling music spectra.
+
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+
+
+\section{save for later}
+It is from the identification and understanding of these feature vectors, as well as the patterns identified within them, that allow for tasks such as similarity matching, audio classification, and song fingerprinting to be done algorithmically by computers.
+
+\bibliography{mybib}{}
+\bibliographystyle{plainnat}
+%\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+
+%\bibitem[Figueredo and Wolf, 2009]{Figueredo:2009dg}
+%Figueredo, A.~J. and Wolf, P. S.~A. (2009).
+%\newblock Assortative pairing and life history strategy - a cross-cultural
+%  study.
+%\newblock {\em Human Nature}, 20:317--330.
+% 
+%\end{thebibliography}
+
+%----------------------------------------------------------------------------------------
+
+\end{multicols}
+
+\end{document}
